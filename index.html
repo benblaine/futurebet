@@ -389,11 +389,28 @@
       if (!SHEET_ENDPOINT) return; // Not configured yet — the spin still works.
       // text/plain keeps this a "simple" request, so the browser skips the CORS
       // preflight that Apps Script web apps don't answer.
-      await fetch(SHEET_ENDPOINT, {
+      const res = await fetch(SHEET_ENDPOINT, {
         method: "POST",
         headers: { "Content-Type": "text/plain;charset=utf-8" },
         body: JSON.stringify({ email, source: "futurebet.lol", ts: new Date().toISOString() }),
       });
+
+      if (!res.ok) throw new Error("Waitlist endpoint returned " + res.status);
+
+      // Only trust the reply when it's actually readable. Apps Script redirects
+      // to googleusercontent.com, so an unreadable body is a CORS quirk rather
+      // than a failed append — don't turn a saved row into a false alarm.
+      let reply;
+      try {
+        reply = JSON.parse(await res.text());
+      } catch (err) {
+        return;
+      }
+
+      // A duplicate still counts as being on the list.
+      if (reply && reply.ok === false) {
+        throw new Error(reply.error || "Waitlist endpoint rejected the signup");
+      }
     }
 
     form.addEventListener("submit", async (e) => {
