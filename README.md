@@ -24,7 +24,7 @@ Every push to the production branch redeploys automatically.
 
 The email form works the moment the page is live, but until you finish these steps the addresses aren't stored anywhere. Roughly five minutes:
 
-1. Open the [FutureBet Waitlist sheet](https://docs.google.com/spreadsheets/d/11_iJU0GDE6xX4MIBH0zjNbjgwgSjvfSK98u9h69xsik/edit). (Starting over? Any new sheet from [sheets.new](https://sheets.new) works the same way.)
+1. Open the [FutureBet Waitlist sheet](https://docs.google.com/spreadsheets/d/1wIJGGbIodT6fryA3XKXi1zNu-s2tTz4aoeF6Ud899ik/edit), signed in as benblaine@gmail.com. It has to be a personal Google account — Workspace domains can block the "Anyone" access level the next steps need. (Starting over? Any new sheet from [sheets.new](https://sheets.new) works the same way.)
 2. In that sheet choose **Extensions → Apps Script**. Delete the placeholder code.
 3. Paste in the entire contents of `google-apps-script.gs` from this repo and save.
 4. Click **Deploy → New deployment**. Pick type **Web app**, then set:
