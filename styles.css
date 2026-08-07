@@ -21,12 +21,84 @@
    Hand-written rules (everything above is the compiled Tailwind).
    --------------------------------------------------------------- */
 
-.hero-logo {
+.hero-logo-wrap {
+  position: relative;
   display: block;
   width: 100%;
   max-width: 620px;
+}
+
+.hero-logo {
+  display: block;
+  width: 100%;
   height: auto;
   /* Stands in for the glow-pink/glow-green text-shadows the wordmark replaced. */
   filter: drop-shadow(0 0 18px rgba(255, 0, 255, 0.45))
           drop-shadow(0 0 44px rgba(0, 255, 136, 0.22));
+}
+
+/* A light sweep that rides across the wordmark. Masking the gradient with the
+   logo itself keeps it on the letters instead of washing the box behind them. */
+.hero-logo-wrap::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: linear-gradient(100deg,
+              transparent 38%,
+              rgba(255, 255, 255, 0.5) 47%,
+              rgba(255, 255, 255, 0.92) 50%,
+              rgba(255, 255, 255, 0.5) 53%,
+              transparent 62%);
+  background-size: 250% 100%;
+  background-repeat: no-repeat;
+  -webkit-mask-image: url("logo.webp");
+  mask-image: url("logo.webp");
+  -webkit-mask-size: 100% 100%;
+  mask-size: 100% 100%;
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+  mix-blend-mode: screen;
+  animation: logoShimmer 6s ease-in-out infinite;
+}
+
+/* Sweeps across, then waits most of the cycle so it reads as an occasional
+   glint rather than a strobe. */
+@keyframes logoShimmer {
+  0%   { background-position: 100% 0; }
+  30%  { background-position: 0% 0; }
+  100% { background-position: 0% 0; }
+}
+
+.sparkle {
+  position: absolute;
+  width: 4.4%;
+  aspect-ratio: 1;
+  pointer-events: none;
+  opacity: 0;
+  background: #fff;
+  clip-path: polygon(50% 0%, 60% 40%, 100% 50%, 60% 60%,
+                     50% 100%, 40% 60%, 0% 50%, 40% 40%);
+  animation: sparkleTwinkle 6s ease-in-out infinite;
+}
+
+@keyframes sparkleTwinkle {
+  0%, 40%, 100% { opacity: 0; transform: scale(0.2) rotate(0deg); }
+  48%           { opacity: 1; transform: scale(1) rotate(35deg); }
+  64%           { opacity: 0; transform: scale(0.3) rotate(75deg); }
+}
+
+/* Staggered into a cascade across the wordmark, each tinted to the letters
+   underneath. Kept clear of the top-left corner, where the WIN NOW! sticker
+   sits over the logo. */
+.sparkle-1 { top: 10%; left: 26%; animation-delay: 0s;    filter: drop-shadow(0 0 8px #ff00ff); }
+.sparkle-2 { top: 62%; left: 38%; animation-delay: 0.35s; width: 3.2%; filter: drop-shadow(0 0 8px #ff00ff); }
+.sparkle-3 { top: 8%;  left: 55%; animation-delay: 0.7s;  filter: drop-shadow(0 0 8px #00e5ff); }
+.sparkle-4 { top: 66%; left: 72%; animation-delay: 1.05s; width: 3.2%; filter: drop-shadow(0 0 8px #00ff88); }
+.sparkle-5 { top: 6%;  left: 86%; animation-delay: 1.4s;  filter: drop-shadow(0 0 8px #00ff88); }
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-logo-wrap::after,
+  .sparkle { animation: none; }
+  .sparkle { opacity: 0; }
 }

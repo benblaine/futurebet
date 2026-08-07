@@ -8,7 +8,7 @@ Static site, no build step and no dependencies. Vercel serves the files as-is.
 | --- | --- |
 | `index.html` | The page: markup plus the slot-machine and waitlist behaviour |
 | `styles.css` | Compiled Tailwind utilities, the custom animations (marquee, glitch, neon glow), and the hand-written rules at the very bottom |
-| `logo.webp` | The FutureBet.lol wordmark used as the hero heading, background keyed to transparency |
+| `logo.webp` | The FutureBet.lol wordmark used as the hero heading, supplied pre-cut with an alpha channel |
 | `poster.jpg` | Ad artwork, also the video poster and the social share image |
 | `futurebet.mp4` | The "banned ad" video, muxed with `faststart` so it streams instead of downloading in full first |
 
@@ -58,3 +58,5 @@ Then open <http://localhost:8000>. Opening `index.html` directly with `file://` 
 The styling uses Tailwind utility class names, but `styles.css` is a pre-compiled stylesheet rather than a Tailwind build. Existing classes can be rearranged freely; a utility that isn't already in `styles.css` won't do anything — and it fails silently, so a made-up value like `max-w-[440px]` just gets ignored rather than erroring. Add a plain CSS rule for anything new, at the bottom of `styles.css` under the hand-written section. The palette is hot pink `#ff00ff`, acid green `#00ff88`, and yellow `#ffea00` on black.
 
 The hero wordmark is an image (`logo.webp`) sized by the `.hero-logo` rule, so change its size there rather than with utility classes. Its neon halo is a CSS `drop-shadow`, not part of the file.
+
+Its sparkle is CSS too. A light sweep runs across the letters — masked with `logo.webp` itself, so it lights up the wordmark rather than the box around it — followed by five star `<span>`s twinkling in a staggered cascade. Both share a 6s cycle: the sweep in the first third, the stars after. Replacing the logo means updating the mask in `.hero-logo-wrap::after` as well as the `<img>`, and the `.sparkle-N` positions are percentages tuned to the current letterforms. The whole effect is disabled under `prefers-reduced-motion`.
