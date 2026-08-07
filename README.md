@@ -7,8 +7,9 @@ Static site, no build step and no dependencies. Vercel serves the files as-is.
 | File | What it is |
 | --- | --- |
 | `index.html` | The page: markup plus the slot-machine and waitlist behaviour |
-| `styles.css` | Compiled Tailwind utilities plus the custom animations (marquee, glitch, neon glow) |
-| `poster.jpg` | Hero and video poster artwork |
+| `styles.css` | Compiled Tailwind utilities, the custom animations (marquee, glitch, neon glow), and the hand-written rules at the very bottom |
+| `logo.webp` | The FutureBet.lol wordmark used as the hero heading, background keyed to transparency |
+| `poster.jpg` | Ad artwork, also the video poster and the social share image |
 | `futurebetvideo_compressed.mp4` | The "banned ad" video |
 | `google-apps-script.gs` | Backend for the waitlist — runs on Google, not here |
 
@@ -56,4 +57,6 @@ Then open <http://localhost:8000>. Opening `index.html` directly with `file://` 
 
 ## Editing the design
 
-The styling uses Tailwind utility class names, but `styles.css` is a pre-compiled stylesheet rather than a Tailwind build. Existing classes can be rearranged freely; a utility that isn't already in `styles.css` won't do anything, so add a plain CSS rule for anything new. The palette is hot pink `#ff00ff`, acid green `#00ff88`, and yellow `#ffea00` on black.
+The styling uses Tailwind utility class names, but `styles.css` is a pre-compiled stylesheet rather than a Tailwind build. Existing classes can be rearranged freely; a utility that isn't already in `styles.css` won't do anything — and it fails silently, so a made-up value like `max-w-[440px]` just gets ignored rather than erroring. Add a plain CSS rule for anything new, at the bottom of `styles.css` under the hand-written section. The palette is hot pink `#ff00ff`, acid green `#00ff88`, and yellow `#ffea00` on black.
+
+The hero wordmark is an image (`logo.webp`) sized by the `.hero-logo` rule, so change its size there rather than with utility classes. Its neon halo is a CSS `drop-shadow`, not part of the file.
