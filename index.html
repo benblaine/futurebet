@@ -2,255 +2,451 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>FutureBet — Bet on the future</title>
-  <meta name="description" content="FutureBet is a playground for predictions. Call the future, back your hot takes, and see who really knows what's coming. Launching soon.">
-  <meta property="og:title" content="FutureBet — Bet on the future">
-  <meta property="og:description" content="Call the future, back your hot takes, and see who really knows what's coming. Launching soon.">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>FutureBet.lol — Gamble With Your Future</title>
+  <meta name="description" content="FutureBet.lol is fake. The exploitation is real. A satirical art project exposing predatory gambling advertising in South Africa.">
+  <meta property="og:title" content="FutureBet.lol — Gamble With Your Future">
+  <meta property="og:description" content="FutureBet.lol is fake. The exploitation is real. A satirical art project exposing predatory gambling advertising in South Africa.">
+  <meta property="og:image" content="https://futurebet.lol/poster.jpg">
   <meta property="og:url" content="https://futurebet.lol">
   <meta property="og:type" content="website">
-  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%F0%9F%94%AE%3C/text%3E%3C/svg%3E">
-  <style>
-    :root {
-      --bg: #0a0a12;
-      --bg-card: #12121f;
-      --text: #f4f4f8;
-      --text-dim: #9d9db3;
-      --accent: #7c5cff;
-      --accent-2: #00e5a0;
-      --accent-3: #ff5c8a;
-      --border: rgba(255, 255, 255, 0.08);
-    }
-    * { margin: 0; padding: 0; box-sizing: border-box; }
-    html { scroll-behavior: smooth; }
-    body {
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-      background: var(--bg);
-      color: var(--text);
-      line-height: 1.6;
-      overflow-x: hidden;
-    }
-    .glow {
-      position: fixed;
-      border-radius: 50%;
-      filter: blur(120px);
-      opacity: 0.25;
-      pointer-events: none;
-      z-index: 0;
-    }
-    .glow-1 { width: 500px; height: 500px; background: var(--accent); top: -150px; left: -100px; }
-    .glow-2 { width: 400px; height: 400px; background: var(--accent-2); bottom: -100px; right: -100px; opacity: 0.15; }
-    main {
-      position: relative;
-      z-index: 1;
-      max-width: 960px;
-      margin: 0 auto;
-      padding: 0 24px;
-    }
-    header {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 28px 0;
-    }
-    .logo {
-      font-size: 1.25rem;
-      font-weight: 800;
-      letter-spacing: -0.02em;
-    }
-    .logo span { color: var(--accent-2); }
-    .badge {
-      font-size: 0.75rem;
-      font-weight: 600;
-      text-transform: uppercase;
-      letter-spacing: 0.08em;
-      color: var(--accent-2);
-      border: 1px solid var(--accent-2);
-      border-radius: 999px;
-      padding: 4px 12px;
-    }
-    .hero {
-      padding: 96px 0 64px;
-      text-align: center;
-    }
-    .hero h1 {
-      font-size: clamp(2.5rem, 8vw, 4.5rem);
-      font-weight: 800;
-      letter-spacing: -0.03em;
-      line-height: 1.1;
-      margin-bottom: 24px;
-    }
-    .hero h1 .gradient {
-      background: linear-gradient(100deg, var(--accent) 0%, var(--accent-3) 50%, var(--accent-2) 100%);
-      -webkit-background-clip: text;
-      background-clip: text;
-      -webkit-text-fill-color: transparent;
-      color: transparent;
-    }
-    .hero p {
-      font-size: 1.2rem;
-      color: var(--text-dim);
-      max-width: 540px;
-      margin: 0 auto 40px;
-    }
-    .waitlist {
-      display: flex;
-      gap: 12px;
-      justify-content: center;
-      flex-wrap: wrap;
-      max-width: 480px;
-      margin: 0 auto;
-    }
-    .waitlist input {
-      flex: 1;
-      min-width: 220px;
-      padding: 14px 18px;
-      font-size: 1rem;
-      color: var(--text);
-      background: var(--bg-card);
-      border: 1px solid var(--border);
-      border-radius: 12px;
-      outline: none;
-      transition: border-color 0.2s;
-    }
-    .waitlist input:focus { border-color: var(--accent); }
-    .waitlist button {
-      padding: 14px 28px;
-      font-size: 1rem;
-      font-weight: 700;
-      color: #0a0a12;
-      background: var(--accent-2);
-      border: none;
-      border-radius: 12px;
-      cursor: pointer;
-      transition: transform 0.15s, box-shadow 0.15s;
-    }
-    .waitlist button:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 8px 24px rgba(0, 229, 160, 0.35);
-    }
-    .waitlist-note {
-      font-size: 0.85rem;
-      color: var(--text-dim);
-      margin-top: 16px;
-      min-height: 1.2em;
-    }
-    .features {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-      gap: 20px;
-      padding: 48px 0 96px;
-    }
-    .card {
-      background: var(--bg-card);
-      border: 1px solid var(--border);
-      border-radius: 16px;
-      padding: 28px;
-      text-align: left;
-      transition: transform 0.2s, border-color 0.2s;
-    }
-    .card:hover {
-      transform: translateY(-4px);
-      border-color: rgba(124, 92, 255, 0.4);
-    }
-    .card .icon { font-size: 1.8rem; margin-bottom: 14px; }
-    .card h3 {
-      font-size: 1.1rem;
-      font-weight: 700;
-      margin-bottom: 8px;
-      letter-spacing: -0.01em;
-    }
-    .card p { font-size: 0.95rem; color: var(--text-dim); }
-    footer {
-      border-top: 1px solid var(--border);
-      padding: 32px 0 48px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      flex-wrap: wrap;
-      gap: 12px;
-      font-size: 0.9rem;
-      color: var(--text-dim);
-    }
-    footer a { color: var(--text-dim); text-decoration: none; }
-    footer a:hover { color: var(--accent-2); }
-  </style>
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%F0%9F%8E%B0%3C/text%3E%3C/svg%3E">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Anton&family=Space+Mono:wght@400;700&display=swap">
+  <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-  <div class="glow glow-1"></div>
-  <div class="glow glow-2"></div>
-  <main>
-    <header>
-      <div class="logo">future<span>bet</span>.lol</div>
-      <div class="badge">Launching soon</div>
-    </header>
+  <div class="min-h-screen bg-black text-white selection:bg-[#ff00ff] selection:text-black font-mono overflow-x-hidden max-w-[100vw] w-full">
 
-    <section class="hero">
-      <h1>Bet on <span class="gradient">the future</span>.</h1>
-      <p>Call your shots on what happens next — tech, sport, culture, everything. Back your hot takes and find out who really knows what's coming.</p>
-      <form class="waitlist" id="waitlist-form">
-        <input type="email" id="waitlist-email" placeholder="you@example.com" required autocomplete="email">
-        <button type="submit">Get early access</button>
-      </form>
-      <div class="waitlist-note" id="waitlist-note">Be first in when we open the doors.</div>
+    <!-- Toast -->
+    <div id="toast" class="fixed top-[64px] left-1/2 -translate-x-1/2 z-[100] bg-[#ffea00] text-black border-[3px] border-black px-4 py-2 font-display text-[13px] tracking-widest shadow-[6px_6px_0_black] hidden"></div>
+
+    <!-- Marquee -->
+    <div class="relative z-50 border-y-[3px] border-[#ff00ff] bg-[#ff00ff] text-black overflow-hidden py-2 font-display text-[12px] md:text-[15px] tracking-widest uppercase w-full max-w-[100vw]">
+      <div class="marquee-track flex w-max max-w-none">
+        <span class="pr-8 whitespace-nowrap">FUTUREBET.LOL • GAMBLE WITH YOUR FUTURE • WIN BIG OR IMPOVERISH YOURSELF • JOZI RISING • BET OR BUST • SLUM JACKPOTS • FUTUREBET.WTF • WE GAMBLE WITH YOUR FUTURE. YOU SHOULD TOO!* • </span>
+        <span class="pr-8 whitespace-nowrap">FUTUREBET.LOL • GAMBLE WITH YOUR FUTURE • WIN BIG OR IMPOVERISH YOURSELF • JOZI RISING • BET OR BUST • SLUM JACKPOTS • FUTUREBET.WTF • WE GAMBLE WITH YOUR FUTURE. YOU SHOULD TOO!* • </span>
+      </div>
+    </div>
+
+    <!-- Hero -->
+    <section class="relative min-h-[92vh] flex flex-col justify-center border-b-[6px] border-[#00ff88] overflow-hidden noise w-full max-w-[100vw]">
+      <img src="poster.jpg" alt="FutureBet.lol poster art" class="absolute inset-0 w-full h-full object-cover opacity-[0.28] md:opacity-[0.36]">
+      <div class="absolute inset-0 bg-gradient-to-br from-black via-black/70 to-[#ff00ff]/30"></div>
+      <div class="absolute inset-0 bg-[radial-gradient(circle_at_30%_20%,#00ff88_0%,transparent_40%),radial-gradient(circle_at_80%_80%,#ff00ff_0%,transparent_35%)] opacity-30 mix-blend-screen"></div>
+
+      <div class="pointer-events-none hidden lg:block">
+        <div class="absolute left-[4%] top-[14%] bg-[#ffea00] text-black font-display px-3 py-1 rotate-[-8deg] text-lg border-2 border-black shadow-[3px_3px_0_black]" style="animation: float 3s ease-in-out infinite; --r: -8deg">WIN NOW!</div>
+        <div class="absolute right-[4%] top-[18%] bg-[#00ff88] text-black font-display px-3 py-1 rotate-[8deg] text-base border-2 border-black shadow-[3px_3px_0_black]" style="animation: float 3.6s ease-in-out infinite; --r: 8deg">RISK IT ALL!</div>
+        <div class="absolute left-[40%] bottom-[14%] bg-[#ff00ff] text-white font-display px-3 py-1 rotate-[4deg] text-base border-2 border-black shadow-[3px_3px_0_black]" style="animation: float 2.8s ease-in-out infinite; --r: 4deg">BET OR BUST</div>
+      </div>
+
+      <div class="relative z-10 mx-auto w-full max-w-[1280px] px-4 md:px-8 py-8 md:py-12 grid lg:grid-cols-[1.1fr_0.9fr] gap-6 md:gap-8 items-center">
+        <div class="space-y-6 min-w-0">
+          <div class="inline-flex items-center gap-2 bg-black border-2 border-[#00ff88] px-3 py-1 text-[10px] md:text-[11px] tracking-[0.2em] uppercase max-w-full flex-wrap">
+            <span class="w-2 h-2 bg-[#00ff88] animate-pulse rounded-full"></span> LIVE FROM JOZI • PARODY DROP #001 • NOT A REAL BOOKMAKER
+          </div>
+          <h1 id="hero-title" class="font-display leading-[0.9] uppercase max-w-full overflow-hidden">
+            <span class="block text-[13vw] md:text-[7vw] lg:text-[6.5rem] text-white glow-pink tracking-[-0.02em] whitespace-nowrap">FUTUREBET</span>
+            <span class="block text-[13vw] md:text-[7vw] lg:text-[6.5rem] text-[#00ff88] -mt-1 glow-green whitespace-nowrap">.LOL</span>
+          </h1>
+          <div class="bg-[#ff00ff] text-black inline-block max-w-full px-3 py-1 font-display text-[11px] md:text-[14px] tracking-wide rotate-[-1deg] border-[3px] border-black shadow-[5px_5px_0_black]">GAMBLE WITH YOUR FUTURE, WIN BIG OR IMPOVERISH YOURSELF, THE ULTIMATE THRILL!</div>
+          <h2 class="font-display text-[6.8vw] md:text-[2.4rem] leading-[0.95] uppercase max-w-[18ch]">BET YOUR <span class="text-[#ffea00] glow-yellow">GROCERIES.</span> BET YOUR KIDS SCHOOL FEES. BET YOUR <span class="bg-[#00ff88] text-black px-2">TAXI.</span></h2>
+          <div class="flex flex-wrap gap-3 pt-2">
+            <button id="btn-watch" class="group bg-[#ff00ff] hover:bg-[#ff33ff] text-black font-display text-[14px] md:text-[15px] tracking-widest px-5 py-3 border-[3px] border-black shadow-[5px_5px_0_black] hover:shadow-[7px_7px_0_black] hover:-translate-x-[1px] hover:-translate-y-[1px] transition-all uppercase flex items-center gap-2"><span>▶</span> WATCH THE BANNED AD</button>
+            <button id="btn-join" class="bg-black text-[#00ff88] font-display text-[14px] md:text-[15px] tracking-widest px-5 py-3 border-[3px] border-[#00ff88] shadow-[5px_5px_0_#00ff88] hover:bg-[#00ff88] hover:text-black transition-all uppercase">JOIN THE RESISTANCE →</button>
+          </div>
+          <p class="text-[10px] opacity-70 max-w-[42ch]">*Results not guaranteed. Future sold separately. Odds are 100% that ads will tell you otherwise.</p>
+        </div>
+
+        <div class="relative lg:pl-4 flex justify-center min-w-0 w-full">
+          <div id="polaroid" class="relative bg-white p-3 pb-12 rotate-[-1deg] border-[3px] border-black shadow-[6px_6px_0_black] w-full max-w-[320px] md:max-w-[380px] transition-transform duration-300 hover:rotate-[0deg] hover:scale-[1.02]">
+            <div class="relative overflow-hidden border-[3px] border-black bg-black">
+              <img src="poster.jpg" alt="Futurebet poster" class="w-full h-[380px] md:h-[440px] object-cover object-top">
+              <div id="scanlines" class="absolute inset-0 mix-blend-screen opacity-60 pointer-events-none hidden">
+                <div class="absolute top-[22%] w-full h-[6px] bg-[#ff00ff]"></div>
+                <div class="absolute top-[47%] w-full h-[10px] bg-[#00ff88]"></div>
+              </div>
+              <div class="absolute bottom-2 left-2 bg-[#ff00ff] text-black font-display text-[10px] px-2 py-1">CENSORED // BANNED IN 3 TOWNSHIPS</div>
+            </div>
+            <div class="absolute bottom-2 left-0 right-0 flex justify-between px-4 font-display text-black text-[12px] tracking-wide uppercase">
+              <span>Jozi Rising • 2025</span>
+              <span class="bg-black text-white px-2">FUTUREBET.WTF</span>
+            </div>
+            <div class="absolute -top-3 left-1/2 -translate-x-1/2 w-[100px] h-[20px] bg-[#ffea00]/80 rotate-[-6deg] border border-black/20 shadow-sm"></div>
+          </div>
+          <div class="absolute right-4 md:right-4 -bottom-1 w-[56px] h-[56px] rounded-full bg-gradient-to-br from-[#ffea00] to-[#ff8a00] border-[3px] border-black shadow-[3px_3px_0_black] flex items-center justify-center font-display text-black text-[18px] rotate-[12deg]" style="animation: float 2.2s ease-in-out infinite">R1</div>
+        </div>
+      </div>
+
+      <div class="relative z-10 border-t-[3px] border-black bg-[#ffea00] text-black font-display text-[10px] md:text-[11px] py-1 px-4 flex gap-4 md:gap-6 uppercase tracking-widest overflow-hidden whitespace-nowrap w-full">
+        <span>⚠️ THIS IS SATIRE</span><span>•</span><span>FUTUREBET IS FAKE</span><span>•</span><span>THE EXPLOITATION IS REAL</span><span>•</span><span>JOZI VS BOOKIES</span>
+      </div>
     </section>
 
-    <section class="features">
-      <div class="card">
-        <div class="icon">🔮</div>
-        <h3>Make the call</h3>
-        <p>Pick a prediction — or create your own — and stake your claim on how the future unfolds.</p>
-      </div>
-      <div class="card">
-        <div class="icon">⚡</div>
-        <h3>Back your take</h3>
-        <p>Put something on the line. Confidence is cheap until the outcome lands.</p>
-      </div>
-      <div class="card">
-        <div class="icon">🏆</div>
-        <h3>Prove you saw it coming</h3>
-        <p>Climb the leaderboard and build a track record that shows you called it first.</p>
+    <!-- Video -->
+    <section id="video" class="relative bg-[#0a0a0a] border-b-[6px] border-[#ff00ff] py-14 md:py-24 px-4 md:px-8 overflow-hidden w-full max-w-[100vw]">
+      <div class="mx-auto max-w-[1280px] w-full">
+        <div class="flex flex-wrap items-center gap-3 mb-8 max-w-full">
+          <h3 class="font-display text-[8.5vw] md:text-[3.2rem] leading-[0.9] uppercase break-words max-w-full">OUR TOTALLY LEGIT,<br><span class="text-[#00ff88]">NOT MANIPULATIVE AD™</span></h3>
+          <div class="bg-[#ff00ff] text-black font-display px-3 py-1 text-[11px] border-2 border-black rotate-[2deg]">18+ • PARODY • LOUD</div>
+        </div>
+
+        <div class="grid lg:grid-cols-[1.2fr_0.8fr] gap-8 items-start w-full">
+          <div class="relative group min-w-0 w-full">
+            <div class="absolute inset-0 bg-gradient-to-r from-[#ff00ff] via-[#ffea00] to-[#00ff88] opacity-60 rounded-[4px]"></div>
+            <div class="relative bg-black border-[4px] border-black p-2 md:p-3 shadow-[4px_4px_0_black] w-full overflow-hidden">
+
+              <div id="video-placeholder" class="relative w-full aspect-[16/9] bg-black overflow-hidden border-2 border-white/10">
+                <img src="poster.jpg" alt="video poster" class="w-full h-full object-cover opacity-70">
+                <div class="absolute inset-0 flex flex-col items-center justify-center gap-3 p-4">
+                  <button class="js-play w-[64px] h-[64px] md:w-[80px] md:h-[80px] rounded-full bg-[#ff00ff] border-[3px] border-black shadow-[4px_4px_0_black] flex items-center justify-center text-[24px] text-black hover:scale-105 transition-transform" aria-label="Play the banned ad">▶</button>
+                  <button class="js-play bg-[#ffea00] text-black font-display px-3 py-1 text-[11px] border-2 border-black text-center hover:bg-white transition-colors">CLICK TO LOAD BANNED AD</button>
+                  <div class="text-[10px] bg-black text-white px-2 py-1">STARRING JOHAN 'THE BOULDER' VILJOEN</div>
+                </div>
+              </div>
+
+              <video id="video-player" class="w-full aspect-[16/9] object-cover bg-black hidden" controls playsinline preload="none" poster="poster.jpg">
+                <source src="futurebetvideo_compressed.mp4" type="video/mp4">
+                Your browser can't play this video. <a href="futurebetvideo_compressed.mp4" class="text-[#00ff88] underline">Download it instead.</a>
+              </video>
+
+              <div class="flex justify-between items-center mt-3 font-mono text-[10px] uppercase tracking-widest gap-2 flex-wrap w-full">
+                <span class="bg-white text-black px-2 py-1">STARRING JOHAN 'THE BOULDER' VILJOEN</span>
+                <span class="text-[#ff00ff]">● REC • JOZI_TOWNSHIP_CAM_04</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="space-y-4 min-w-0 w-full">
+            <div class="relative bg-[#111] border-[3px] p-4 shadow-[4px_4px_0_black] rotate-[0.2deg] hover:rotate-0 transition-transform w-full" style="border-color:#ff00ff">
+              <div class="flex justify-between items-start mb-2 gap-2">
+                <div class="flex items-center gap-2 min-w-0">
+                  <div class="w-9 h-9 bg-white text-black border-2 border-black flex items-center justify-center text-xl shrink-0">🛒</div>
+                  <div class="font-display text-[14px] leading-none uppercase tracking-wide break-words">BET YOUR GROCERY BUDGET</div>
+                </div>
+                <div class="bg-black text-white border border-white/20 px-2 py-1 font-display text-[10px] shrink-0">ODDS 1/1000</div>
+              </div>
+              <p class="text-[12px] leading-[1.4] opacity-80 break-words">You can buy food or WIN BIG and hire a private chef forever! Eating is overrated anyway.</p>
+              <div class="mt-3 border-t border-dashed border-white/20 pt-2 flex justify-between text-[9px] uppercase tracking-widest opacity-60 gap-2">
+                <span>SLIP #001 • FUTUREBET.LOL</span><span class="text-[#ff00ff]">VOID IF YOU THINK</span>
+              </div>
+            </div>
+
+            <div class="relative bg-[#111] border-[3px] p-4 shadow-[4px_4px_0_black] rotate-[0.2deg] hover:rotate-0 transition-transform w-full" style="border-color:#00ff88">
+              <div class="flex justify-between items-start mb-2 gap-2">
+                <div class="flex items-center gap-2 min-w-0">
+                  <div class="w-9 h-9 bg-white text-black border-2 border-black flex items-center justify-center text-xl shrink-0">🎓</div>
+                  <div class="font-display text-[14px] leading-none uppercase tracking-wide break-words">BET YOUR SCHOOL FEES</div>
+                </div>
+                <div class="bg-black text-white border border-white/20 px-2 py-1 font-display text-[10px] shrink-0">ODDS 99/1</div>
+              </div>
+              <p class="text-[12px] leading-[1.4] opacity-80 break-words">Become rich betting your children's school fees! If you lose, who cares? School sucks anyway.</p>
+              <div class="mt-3 border-t border-dashed border-white/20 pt-2 flex justify-between text-[9px] uppercase tracking-widest opacity-60 gap-2">
+                <span>SLIP #002 • FUTUREBET.LOL</span><span class="text-[#ff00ff]">VOID IF YOU THINK</span>
+              </div>
+            </div>
+
+            <div class="relative bg-[#111] border-[3px] p-4 shadow-[4px_4px_0_black] rotate-[0.2deg] hover:rotate-0 transition-transform w-full" style="border-color:#ffea00">
+              <div class="flex justify-between items-start mb-2 gap-2">
+                <div class="flex items-center gap-2 min-w-0">
+                  <div class="w-9 h-9 bg-white text-black border-2 border-black flex items-center justify-center text-xl shrink-0">🚕</div>
+                  <div class="font-display text-[14px] leading-none uppercase tracking-wide break-words">BET YOUR TAXI FARE</div>
+                </div>
+                <div class="bg-black text-white border border-white/20 px-2 py-1 font-display text-[10px] shrink-0">ODDS 5/1</div>
+              </div>
+              <p class="text-[12px] leading-[1.4] opacity-80 break-words">Win and buy your own taxi! Lose and... walk. Work sucks anyway.</p>
+              <div class="mt-3 border-t border-dashed border-white/20 pt-2 flex justify-between text-[9px] uppercase tracking-widest opacity-60 gap-2">
+                <span>SLIP #003 • FUTUREBET.LOL</span><span class="text-[#ff00ff]">VOID IF YOU THINK</span>
+              </div>
+            </div>
+
+            <div class="bg-[#ffea00] text-black font-display text-[11px] p-3 border-[3px] border-black rotate-[-0.5deg] w-full">SOUNDS ABSURD WHEN WE SAY THE QUIET PART OUT LOUD, RIGHT? THAT'S THE POINT.</div>
+          </div>
+        </div>
       </div>
     </section>
 
-    <footer>
-      <div>© 2026 FutureBet</div>
-      <a href="mailto:hello@futurebet.lol">hello@futurebet.lol</a>
+    <!-- Manifesto -->
+    <section id="manifesto" class="relative bg-[#f5f1e8] text-black py-16 md:py-24 px-4 md:px-8 border-b-[8px] border-black overflow-hidden w-full max-w-[100vw]">
+      <div class="absolute inset-0 opacity-[0.06]" style="background-image: repeating-linear-gradient(0deg, black 0 1px, transparent 1px 22px)"></div>
+      <div class="mx-auto max-w-[1120px] relative w-full">
+        <div class="grid md:grid-cols-[0.9fr_1.1fr] gap-10 items-start w-full">
+          <div class="min-w-0">
+            <div class="inline-block bg-black text-[#00ff88] font-display px-3 py-1 text-[11px] tracking-[0.2em] mb-4">/// MANIFESTO // WAKE UP</div>
+            <h3 class="font-display text-[10vw] md:text-[4.5rem] leading-[0.85] uppercase break-words">WAKE UP.<br>IT'S A JOKE.<br><span class="bg-[#ff00ff] text-white px-2">BUT IT'S NOT.</span></h3>
+          </div>
+          <div class="space-y-5 font-mono text-[14px] leading-[1.6] min-w-0">
+            <p class="text-[17px] leading-[1.3] font-bold break-words">South Africa is drowning in betting ads promising easy money. Every taxi rank, every WhatsApp group, every halftime show.</p>
+            <p class="break-words">They tell you to <span class="bg-black text-white px-1">bet your grocery budget</span>, your school fees, your taxi fare — but with a sexy filter. We just removed the filter.</p>
+            <p class="break-words"><span class="font-display text-[17px] bg-[#ffea00] border-2 border-black px-2 inline-block">FutureBet.lol is fake. The exploitation is real.</span> This is a satirical art project exposing how predatory gambling marketing sounds when you say the quiet part out loud.</p>
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 pt-2">
+              <div class="border-[3px] border-black bg-white p-3 shadow-[3px_3px_0_black]">
+                <div class="font-display text-[26px] leading-none" style="color:#ff00ff; -webkit-text-stroke: 1px black">R1B+</div>
+                <div class="text-[10px] uppercase leading-[1.2] mt-1 opacity-80 break-words">spent on betting ads in SA (parody est.)</div>
+              </div>
+              <div class="border-[3px] border-black bg-white p-3 shadow-[3px_3px_0_black]">
+                <div class="font-display text-[26px] leading-none" style="color:#00ff88; -webkit-text-stroke: 1px black">1 IN 3</div>
+                <div class="text-[10px] uppercase leading-[1.2] mt-1 opacity-80 break-words">SA youth sees a betting ad daily (parody est.)</div>
+              </div>
+              <div class="border-[3px] border-black bg-white p-3 shadow-[3px_3px_0_black]">
+                <div class="font-display text-[26px] leading-none" style="color:#ffea00; -webkit-text-stroke: 1px black">R0</div>
+                <div class="text-[10px] uppercase leading-[1.2] mt-1 opacity-80 break-words">we made from this. It's activism, not a bookie.</div>
+              </div>
+            </div>
+            <p class="text-[10px] opacity-60 uppercase tracking-wide break-words">Stats are satirical estimates to make a point — real crisis data is available via SA Responsible Gambling Programme.</p>
+          </div>
+        </div>
+        <div class="absolute -bottom-12 left-0 right-0 h-[40px] bg-black [clip-path:polygon(0_40%,5%_0,10%_40%,15%_0,20%_40%,25%_0,30%_40%,35%_0,40%_40%,45%_0,50%_40%,55%_0,60%_40%,65%_0,70%_40%,75%_0,80%_40%,85%_0,90%_40%,95%_0,100%_40%,100%_100%,0_100%)]"></div>
+      </div>
+    </section>
+
+    <!-- Join -->
+    <section id="join" class="relative bg-black py-20 md:py-28 px-4 md:px-8 overflow-hidden border-b-[8px] border-[#ff00ff] w-full max-w-[100vw]">
+      <div class="absolute inset-0 bg-[radial-gradient(circle_at_50%_0%,#ff00ff33,transparent_50%),radial-gradient(circle_at_0%_100%,#00ff8833,transparent_40%)]"></div>
+      <div class="mx-auto max-w-[980px] relative z-10 text-center w-full">
+        <div class="inline-flex gap-2 items-center bg-[#ffea00] text-black border-2 border-black font-display px-3 py-1 text-[10px] md:text-[11px] rotate-[-1deg] mb-6 max-w-full flex-wrap justify-center">★★★ MAIN EVENT • NO BETTING • FREE FOREVER ★★★</div>
+        <h3 class="font-display text-[9vw] md:text-[4rem] leading-[0.85] uppercase break-words">DON'T BET YOUR <span class="text-[#ff00ff] glow-pink">FUTURE.</span><br>BET ON US <span class="text-[#00ff88]">EXPOSING THEM.</span></h3>
+        <p class="max-w-[56ch] mx-auto mt-4 text-[13px] md:text-[15px] opacity-80 leading-[1.5] break-words">Get future drops, banned ads, and join the anti-betting advertising movement in South Africa. We roast bookies, not your wallet.</p>
+
+        <div class="mt-10 mx-auto max-w-[560px] relative w-full">
+          <div class="relative bg-[#161616] border-[4px] border-[#ff00ff] rounded-[14px] p-4 md:p-5 shadow-[0_0_0_2px_black,8px_8px_0_black,0_0_30px_#ff00ff55] overflow-hidden w-full max-w-full">
+            <div id="bulbs" class="flex justify-between mb-3 overflow-hidden gap-1"></div>
+
+            <div class="grid grid-cols-3 gap-2 bg-black border-[3px] border-black rounded-[10px] p-2 w-full">
+              <div class="relative h-[72px] md:h-[92px] bg-white border-[3px] border-black overflow-hidden rounded-[8px] flex items-center justify-center min-w-0">
+                <div class="js-reel absolute inset-0 flex flex-col items-center justify-center gap-1">
+                  <div class="js-reel-text font-display text-[14px] md:text-[18px] tracking-widest text-black uppercase text-center px-1 break-words">FUTURE</div>
+                </div>
+                <div class="absolute top-1/2 left-0 right-0 h-[2px] bg-[#ff00ff]/40 -translate-y-1/2 pointer-events-none"></div>
+              </div>
+              <div class="relative h-[72px] md:h-[92px] bg-white border-[3px] border-black overflow-hidden rounded-[8px] flex items-center justify-center min-w-0">
+                <div class="js-reel absolute inset-0 flex flex-col items-center justify-center gap-1">
+                  <div class="js-reel-text font-display text-[14px] md:text-[18px] tracking-widest text-black uppercase text-center px-1 break-words">BET</div>
+                </div>
+                <div class="absolute top-1/2 left-0 right-0 h-[2px] bg-[#ff00ff]/40 -translate-y-1/2 pointer-events-none"></div>
+              </div>
+              <div class="relative h-[72px] md:h-[92px] bg-white border-[3px] border-black overflow-hidden rounded-[8px] flex items-center justify-center min-w-0">
+                <div class="js-reel absolute inset-0 flex flex-col items-center justify-center gap-1">
+                  <div class="js-reel-text font-display text-[14px] md:text-[18px] tracking-widest text-black uppercase text-center px-1 break-words">WTF</div>
+                </div>
+                <div class="absolute top-1/2 left-0 right-0 h-[2px] bg-[#ff00ff]/40 -translate-y-1/2 pointer-events-none"></div>
+              </div>
+            </div>
+
+            <form id="join-form" class="mt-4 flex flex-col gap-3 w-full" novalidate>
+              <div class="flex flex-col sm:flex-row gap-2 w-full">
+                <input id="join-email" type="email" required placeholder="your future @ email.com" autocomplete="email" class="flex-1 min-w-0 bg-black border-[3px] border-white text-white placeholder:text-white/40 px-4 py-3 font-mono text-[13px] uppercase tracking-wide focus:outline-none focus:border-[#00ff88] focus:shadow-[0_0_12px_#00ff88]">
+                <button id="join-submit" type="submit" class="font-display text-[12px] md:text-[14px] px-4 py-3 border-[3px] border-black uppercase tracking-widest transition-all whitespace-nowrap shrink-0 bg-[#ff00ff] text-black hover:bg-[#ff33ff] shadow-[3px_3px_0_black] hover:shadow-[5px_5px_0_black] hover:-translate-y-[1px]">SPIN TO JOIN (FREE)</button>
+              </div>
+              <div class="hidden md:flex absolute right-[8px] top-[42%] flex-col items-center">
+                <div id="lever-knob" class="w-8 h-8 rounded-full bg-[#ffea00] border-[3px] border-black shadow-[2px_2px_0_black] transition-transform"></div>
+                <div id="lever-stick" class="w-[6px] h-[60px] bg-[#ffea00] border-x-[3px] border-black transition-all origin-top"></div>
+              </div>
+              <div class="flex flex-wrap justify-between text-[9px] uppercase tracking-widest opacity-70 gap-2">
+                <span class="break-words">We won't gamble with your email. Hate spam &gt; losing tickets.</span>
+                <span class="text-[#00ff88] shrink-0">NO ODDS • NO FEES • JUST SATIRE</span>
+              </div>
+            </form>
+
+            <div id="join-success" class="absolute inset-0 bg-black/90 backdrop-blur-[2px] flex flex-col items-center justify-center p-5 text-center hidden">
+              <div class="font-display text-[7vw] md:text-[2.4rem] leading-[0.9] uppercase text-[#00ff88] glow-green">BOOM! YOU'RE IN.</div>
+              <p class="mt-2 max-w-[34ch] text-[12px] leading-[1.4] break-words">No odds, no fees, just future satire. Check your inbox. Tell a friend who keeps getting bet-pushed.</p>
+              <div class="mt-3 flex gap-2 text-[18px]"><span>🦌</span><span>🎰</span><span>💥</span><span>🪙</span><span>🦌</span></div>
+              <button id="spin-again" class="mt-4 border border-white/30 px-4 py-2 text-[10px] uppercase tracking-widest hover:bg-white hover:text-black transition-colors">Spin again (for fun)</button>
+            </div>
+          </div>
+
+          <div class="mt-4 flex flex-wrap justify-center gap-2">
+            <div class="bg-[#111] border border-white/10 px-3 py-1 text-[9px] uppercase tracking-widest">Made in Jozi • 2025</div>
+            <div class="bg-[#ff00ff] text-black border-2 border-black px-3 py-1 font-display text-[9px] uppercase tracking-widest">100% SATIRE GUARANTEED</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-black border-t-[6px] border-[#00ff88] px-4 md:px-8 py-12 overflow-hidden w-full max-w-[100vw]">
+      <div class="mx-auto max-w-[1280px] grid md:grid-cols-[1.2fr_0.8fr] gap-10 w-full">
+        <div class="min-w-0">
+          <div class="font-display text-[13vw] md:text-[5.5rem] leading-[0.8] uppercase break-words"><span class="text-white">FUTUREBET</span><span class="text-[#ff00ff]">.WTF</span></div>
+          <p class="mt-4 max-w-[60ch] text-[11px] leading-[1.6] opacity-70 break-words">This is a satirical art project. FutureBet.lol / FutureBet.wtf is not a real betting company. Please don't bet your future away. If you or someone you know has a gambling problem, contact the South African Responsible Gambling Programme: <span class="text-[#00ff88] underline">0800 006 008</span></p>
+          <div class="mt-6 flex flex-wrap gap-2 text-[11px] font-display tracking-widest uppercase">
+            <a href="#join" class="border border-white/20 px-3 py-1 hover:bg-white hover:text-black transition-colors">#JOIN</a>
+            <a href="#manifesto" class="border border-white/20 px-3 py-1 hover:bg-white hover:text-black transition-colors">#MANIFESTO</a>
+            <a href="mailto:hello@futurebet.lol?subject=Jozi%20Resistance" class="border border-[#ff00ff] text-[#ff00ff] px-3 py-1 hover:bg-[#ff00ff] hover:text-black transition-colors">#CONTACT</a>
+          </div>
+        </div>
+        <div class="space-y-4 min-w-0">
+          <div class="bg-[#111] border-[2px] border-[#ff00ff] p-4 w-full">
+            <div class="font-display text-[11px] tracking-widest uppercase text-[#ff00ff] mb-2">ANTI-BETTING AD DROP</div>
+            <p class="text-[12px] leading-[1.4] opacity-80 break-words">We make banned-style ads that show what betting marketing really says. Share them. Meme them. Taxi-rank them.</p>
+          </div>
+          <div class="text-[9px] uppercase tracking-[0.18em] opacity-50 leading-[1.5] break-words">Made in Jozi. No springboks were exploited. Only billionaire bookies. Hot pink #ff00ff • Acid green #00ff88 • Jozi township futurism • Psychedelic springbok approved.</div>
+        </div>
+      </div>
     </footer>
-  </main>
+  </div>
 
   <script>
-    // Waitlist backend not wired up yet. Set FORM_ENDPOINT to a Formspree/Basin/etc.
-    // URL to collect signups; until then the form falls back to a prefilled email.
-    const FORM_ENDPOINT = "";
+    // Paste your Google Apps Script Web App URL here to save signups to the sheet.
+    // Setup instructions live in README.md; the script itself is google-apps-script.gs.
+    const SHEET_ENDPOINT = "";
 
-    const form = document.getElementById("waitlist-form");
-    const note = document.getElementById("waitlist-note");
+    const $ = (id) => document.getElementById(id);
+    const toast = $("toast");
+    let toastTimer;
+
+    function flash(message) {
+      toast.textContent = message;
+      toast.classList.remove("hidden");
+      toast.style.animation = "flicker 0.2s steps(2) 2";
+      clearTimeout(toastTimer);
+      toastTimer = setTimeout(() => toast.classList.add("hidden"), 2500);
+    }
+
+    // Glitch the hero title and poster on a loop.
+    const heroTitle = $("hero-title");
+    const polaroid = $("polaroid");
+    const scanlines = $("scanlines");
+    setInterval(() => {
+      heroTitle.style.animation = "glitchSkew 0.18s steps(2)";
+      polaroid.classList.add("translate-x-[2px]");
+      scanlines.classList.remove("hidden");
+      setTimeout(() => {
+        heroTitle.style.animation = "";
+        polaroid.classList.remove("translate-x-[2px]");
+        scanlines.classList.add("hidden");
+      }, 180);
+    }, 3400);
+
+    // Bulbs across the top of the slot machine.
+    const bulbColors = ["#ff00ff", "#00ff88", "#ffea00"];
+    $("bulbs").innerHTML = Array.from({ length: 14 }, (_, i) => {
+      const c = bulbColors[i % 3];
+      return `<div class="w-[8px] h-[8px] rounded-full border border-black shrink-0" style="background:${c};box-shadow:0 0 6px ${c}"></div>`;
+    }).join("");
+
+    // Video: only fetch the file once someone asks for it.
+    const player = $("video-player");
+    const placeholder = $("video-placeholder");
+    function playVideo() {
+      flash("▶ LOADING BANNED AD...");
+      placeholder.classList.add("hidden");
+      player.classList.remove("hidden");
+      player.preload = "auto";
+      player.play().catch(() => {}); // Autoplay may be blocked; controls still work.
+    }
+    document.querySelectorAll(".js-play").forEach((b) => b.addEventListener("click", playVideo));
+
+    $("btn-watch").addEventListener("click", () => {
+      $("video").scrollIntoView({ behavior: "smooth" });
+      setTimeout(playVideo, 300);
+    });
+
+    $("btn-join").addEventListener("click", () => {
+      flash("JOINING RESISTANCE →");
+      $("join").scrollIntoView({ behavior: "smooth" });
+      setTimeout(() => $("join-email").focus(), 500);
+    });
+
+    // Slot machine + waitlist.
+    const form = $("join-form");
+    const emailInput = $("join-email");
+    const submitBtn = $("join-submit");
+    const success = $("join-success");
+    const reels = document.querySelectorAll(".js-reel");
+    const reelTexts = document.querySelectorAll(".js-reel-text");
+    let spinning = false;
+    let joined = false;
+
+    function setReels(words) {
+      reelTexts.forEach((el, i) => (el.textContent = words[i]));
+    }
+
+    function setSpinning(on) {
+      spinning = on;
+      reels.forEach((r) => r.style.animation = on ? "reelSpin 0.18s linear infinite" : "");
+    }
+
+    function pullLever() {
+      $("lever-knob").classList.add("translate-y-[24px]");
+      $("lever-stick").classList.add("scale-y-[1.15]", "translate-y-[3px]");
+      setTimeout(() => {
+        $("lever-knob").classList.remove("translate-y-[24px]");
+        $("lever-stick").classList.remove("scale-y-[1.15]", "translate-y-[3px]");
+      }, 600);
+    }
+
+    async function saveEmail(email) {
+      if (!SHEET_ENDPOINT) return; // Not configured yet — the spin still works.
+      // text/plain keeps this a "simple" request, so the browser skips the CORS
+      // preflight that Apps Script web apps don't answer.
+      await fetch(SHEET_ENDPOINT, {
+        method: "POST",
+        headers: { "Content-Type": "text/plain;charset=utf-8" },
+        body: JSON.stringify({ email, source: "futurebet.lol", ts: new Date().toISOString() }),
+      });
+    }
 
     form.addEventListener("submit", async (e) => {
       e.preventDefault();
-      const email = document.getElementById("waitlist-email").value.trim();
-      if (!email) return;
+      const email = emailInput.value.trim();
 
-      if (FORM_ENDPOINT) {
-        try {
-          const res = await fetch(FORM_ENDPOINT, {
-            method: "POST",
-            headers: { "Content-Type": "application/json", "Accept": "application/json" },
-            body: JSON.stringify({ email }),
-          });
-          if (!res.ok) throw new Error("Request failed");
-          note.textContent = "You're on the list. See you at launch. 🔮";
-          form.reset();
-        } catch {
-          note.textContent = "Something went wrong — email us at hello@futurebet.lol instead.";
-        }
-      } else {
-        window.location.href =
-          "mailto:hello@futurebet.lol?subject=FutureBet%20waitlist&body=" +
-          encodeURIComponent("Add me to the waitlist: " + email);
-        note.textContent = "Opening your email app — send it and you're on the list.";
+      if (!email.includes("@") || email.length < 5) {
+        flash("ENTER A REAL EMAIL, BHUTI!");
+        emailInput.focus();
+        emailInput.classList.add("shake");
+        setTimeout(() => emailInput.classList.remove("shake"), 400);
+        return;
       }
+      if (spinning || joined) return;
+
+      pullLever();
+      setSpinning(true);
+      setReels(["💸", "🎰", "🦌"]);
+      submitBtn.textContent = "SPINNING...";
+      submitBtn.disabled = true;
+      flash("🎰 SPINNING FUTURE...");
+
+      const saved = saveEmail(email).then(
+        () => true,
+        (err) => { console.error("Waitlist save failed", err); return false; }
+      );
+      // Let the reels spin for the full beat even if the network is instant.
+      const [ok] = await Promise.all([saved, new Promise((r) => setTimeout(r, 1900))]);
+
+      setSpinning(false);
+      submitBtn.disabled = false;
+
+      if (!ok) {
+        setReels(["TRY", "AGAIN", "BHUTI"]);
+        submitBtn.textContent = "SPIN TO JOIN (FREE)";
+        flash("SIGNUP JAMMED — MAIL hello@futurebet.lol");
+        return;
+      }
+
+      joined = true;
+      setReels(["JOINED", "THE", "RESISTANCE"]);
+      submitBtn.textContent = "YOU'RE IN!";
+      submitBtn.className = "font-display text-[12px] md:text-[14px] px-4 py-3 border-[3px] border-black uppercase tracking-widest transition-all whitespace-nowrap shrink-0 bg-[#00ff88] text-black";
+      emailInput.disabled = true;
+      success.classList.remove("hidden");
+      success.style.animation = "flicker 0.6s steps(2)";
+      flash("BOOM! YOU'RE IN 💥");
+    });
+
+    $("spin-again").addEventListener("click", () => {
+      joined = false;
+      emailInput.disabled = false;
+      emailInput.value = "";
+      success.classList.add("hidden");
+      setReels(["FUTURE", "BET", "WTF"]);
+      submitBtn.textContent = "SPIN TO JOIN (FREE)";
+      submitBtn.className = "font-display text-[12px] md:text-[14px] px-4 py-3 border-[3px] border-black uppercase tracking-widest transition-all whitespace-nowrap shrink-0 bg-[#ff00ff] text-black hover:bg-[#ff33ff] shadow-[3px_3px_0_black] hover:shadow-[5px_5px_0_black] hover:-translate-y-[1px]";
+      flash("SPIN AGAIN!");
     });
   </script>
 </body>
