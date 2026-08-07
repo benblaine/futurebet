@@ -10,7 +10,6 @@ Static site, no build step and no dependencies. Vercel serves the files as-is.
 | `styles.css` | Compiled Tailwind utilities plus the custom animations (marquee, glitch, neon glow) |
 | `poster.jpg` | Hero and video poster artwork |
 | `futurebetvideo_compressed.mp4` | The "banned ad" video |
-| `google-apps-script.gs` | Backend for the waitlist — runs on Google, not here |
 
 ## Deploy on Vercel
 
@@ -20,31 +19,30 @@ Static site, no build step and no dependencies. Vercel serves the files as-is.
 
 Every push to the production branch redeploys automatically.
 
-## Saving signups to a Google Sheet
+## Where the signups go
 
-The email form works the moment the page is live, but until you finish these steps the addresses aren't stored anywhere. Roughly five minutes:
+Signups land in the [FutureBet Waitlist sheet](https://docs.google.com/spreadsheets/d/1wIJGGbIodT6fryA3XKXi1zNu-s2tTz4aoeF6Ud899ik/edit) on benblaine@gmail.com, by way of a Google Form that writes into it. This is already wired up and needs no maintenance.
 
-1. Open the [FutureBet Waitlist sheet](https://docs.google.com/spreadsheets/d/1wIJGGbIodT6fryA3XKXi1zNu-s2tTz4aoeF6Ud899ik/edit), signed in as benblaine@gmail.com. It has to be a personal Google account — Workspace domains can block the "Anyone" access level the next steps need. (Starting over? Any new sheet from [sheets.new](https://sheets.new) works the same way.)
-2. In that sheet choose **Extensions → Apps Script**. Delete the placeholder code.
-3. Paste in the entire contents of `google-apps-script.gs` from this repo and save.
-4. Click **Deploy → New deployment**. Pick type **Web app**, then set:
-   - *Execute as*: **Me**
-   - *Who has access*: **Anyone**
+Visitors never see the form. The page posts to it in the background, so the slot machine, the reels and the "YOU'RE IN!" state all behave exactly as they look — nobody leaves futurebet.lol.
 
-   "Anyone" is what lets the landing page post to it. The script only ever appends a row, so this doesn't expose the sheet itself.
-5. Authorise the script when Google prompts. It warns that the app isn't verified — choose **Advanced → Go to (project name)** and allow it. This is normal for your own scripts.
-6. Copy the Web app URL. It looks like `https://script.google.com/macros/s/AKfyc.../exec`.
-7. In `index.html`, paste that URL into the `SHEET_ENDPOINT` constant near the top of the `<script>` block:
+Two constants near the top of the `<script>` block in `index.html` point at the form:
 
-   ```js
-   const SHEET_ENDPOINT = "https://script.google.com/macros/s/AKfyc.../exec";
-   ```
+```js
+const WAITLIST_ENDPOINT = "https://docs.google.com/forms/d/e/<FORM_ID>/formResponse";
+const WAITLIST_EMAIL_FIELD = "entry.<FIELD_ID>";
+```
 
-8. Commit and push. Vercel redeploys, and signups start landing in a **Signups** tab with timestamp, email, and source.
+If the form is ever rebuilt, both IDs change. To re-derive them: open the form, three-dot menu → **Get pre-filled link**, type anything into the email field, **Get link**. The link contains the form ID and an `entry.<digits>=` parameter — those are the two values. Swap `/viewform` for `/formResponse` in the endpoint.
 
-The script creates the tab and its header row on the first signup, and skips addresses that are already on the list. If you edit the Apps Script later, deploy it again with **Deploy → Manage deployments → Edit → New version**, otherwise the old code keeps running.
+While `WAITLIST_ENDPOINT` is empty the form still validates and plays the full slot-machine animation, it just doesn't record anything — handy for testing the page without writing junk rows.
 
-While `SHEET_ENDPOINT` is empty the form still validates and plays the full slot-machine animation, it just doesn't record anything — handy for testing the page without writing junk rows.
+### Two things to know
+
+**Failures are close to invisible.** Google Forms sends no CORS headers, so the request goes out as `no-cors` and the browser can't read the reply. Only a hard network error reaches the "SIGNUP JAMMED" state; an HTTP error from Google would still show "YOU'RE IN!". After changing anything about the form or the endpoint, verify by checking the sheet rather than trusting the page.
+
+**Duplicates aren't filtered.** Someone signing up twice gets two rows. De-dupe when you export — a second tab with `=UNIQUE(Responses!B2:B)` does it.
+
+This replaced an earlier Apps Script web app, which Google refused to authorise: the personal account hit "This app is blocked" with no override, and the Workspace account hid the "Anyone" access level the deployment needed. A Form needs no OAuth and nothing to authorise, at the cost of the two limitations above.
 
 ## Working on the page locally
 
