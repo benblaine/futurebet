@@ -10,7 +10,7 @@ Static site, no build step and no dependencies. Vercel serves the files as-is.
 | `styles.css` | Compiled Tailwind utilities, the custom animations (marquee, glitch, neon glow), and the hand-written rules at the very bottom |
 | `logo.webp` | The FutureBet.lol wordmark used as the hero heading, background keyed to transparency |
 | `poster.jpg` | Ad artwork, also the video poster and the social share image |
-| `futurebetvideo_compressed.mp4` | The "banned ad" video |
+| `futurebet.mp4` | The "banned ad" video, muxed with `faststart` so it streams instead of downloading in full first |
 | `google-apps-script.gs` | Backend for the waitlist — runs on Google, not here |
 
 ## Deploy on Vercel
