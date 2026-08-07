@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FutureBet — Bet on the future</title>
+  <meta name="description" content="FutureBet is a playground for predictions. Call the future, back your hot takes, and see who really knows what's coming. Launching soon.">
+  <meta property="og:title" content="FutureBet — Bet on the future">
+  <meta property="og:description" content="Call the future, back your hot takes, and see who really knows what's coming. Launching soon.">
+  <meta property="og:url" content="https://futurebet.lol">
+  <meta property="og:type" content="website">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%F0%9F%94%AE%3C/text%3E%3C/svg%3E">
+  <style>
+    :root {
+      --bg: #0a0a12;
+      --bg-card: #12121f;
+      --text: #f4f4f8;
+      --text-dim: #9d9db3;
+      --accent: #7c5cff;
+      --accent-2: #00e5a0;
+      --accent-3: #ff5c8a;
+      --border: rgba(255, 255, 255, 0.08);
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+    .glow {
+      position: fixed;
+      border-radius: 50%;
+      filter: blur(120px);
+      opacity: 0.25;
+      pointer-events: none;
+      z-index: 0;
+    }
+    .glow-1 { width: 500px; height: 500px; background: var(--accent); top: -150px; left: -100px; }
+    .glow-2 { width: 400px; height: 400px; background: var(--accent-2); bottom: -100px; right: -100px; opacity: 0.15; }
+    main {
+      position: relative;
+      z-index: 1;
+      max-width: 960px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+    header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 28px 0;
+    }
+    .logo {
+      font-size: 1.25rem;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+    }
+    .logo span { color: var(--accent-2); }
+    .badge {
+      font-size: 0.75rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--accent-2);
+      border: 1px solid var(--accent-2);
+      border-radius: 999px;
+      padding: 4px 12px;
+    }
+    .hero {
+      padding: 96px 0 64px;
+      text-align: center;
+    }
+    .hero h1 {
+      font-size: clamp(2.5rem, 8vw, 4.5rem);
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      line-height: 1.1;
+      margin-bottom: 24px;
+    }
+    .hero h1 .gradient {
+      background: linear-gradient(100deg, var(--accent) 0%, var(--accent-3) 50%, var(--accent-2) 100%);
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+      color: transparent;
+    }
+    .hero p {
+      font-size: 1.2rem;
+      color: var(--text-dim);
+      max-width: 540px;
+      margin: 0 auto 40px;
+    }
+    .waitlist {
+      display: flex;
+      gap: 12px;
+      justify-content: center;
+      flex-wrap: wrap;
+      max-width: 480px;
+      margin: 0 auto;
+    }
+    .waitlist input {
+      flex: 1;
+      min-width: 220px;
+      padding: 14px 18px;
+      font-size: 1rem;
+      color: var(--text);
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+    .waitlist input:focus { border-color: var(--accent); }
+    .waitlist button {
+      padding: 14px 28px;
+      font-size: 1rem;
+      font-weight: 700;
+      color: #0a0a12;
+      background: var(--accent-2);
+      border: none;
+      border-radius: 12px;
+      cursor: pointer;
+      transition: transform 0.15s, box-shadow 0.15s;
+    }
+    .waitlist button:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(0, 229, 160, 0.35);
+    }
+    .waitlist-note {
+      font-size: 0.85rem;
+      color: var(--text-dim);
+      margin-top: 16px;
+      min-height: 1.2em;
+    }
+    .features {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 20px;
+      padding: 48px 0 96px;
+    }
+    .card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 28px;
+      text-align: left;
+      transition: transform 0.2s, border-color 0.2s;
+    }
+    .card:hover {
+      transform: translateY(-4px);
+      border-color: rgba(124, 92, 255, 0.4);
+    }
+    .card .icon { font-size: 1.8rem; margin-bottom: 14px; }
+    .card h3 {
+      font-size: 1.1rem;
+      font-weight: 700;
+      margin-bottom: 8px;
+      letter-spacing: -0.01em;
+    }
+    .card p { font-size: 0.95rem; color: var(--text-dim); }
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 32px 0 48px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 12px;
+      font-size: 0.9rem;
+      color: var(--text-dim);
+    }
+    footer a { color: var(--text-dim); text-decoration: none; }
+    footer a:hover { color: var(--accent-2); }
+  </style>
+</head>
+<body>
+  <div class="glow glow-1"></div>
+  <div class="glow glow-2"></div>
+  <main>
+    <header>
+      <div class="logo">future<span>bet</span>.lol</div>
+      <div class="badge">Launching soon</div>
+    </header>
+
+    <section class="hero">
+      <h1>Bet on <span class="gradient">the future</span>.</h1>
+      <p>Call your shots on what happens next — tech, sport, culture, everything. Back your hot takes and find out who really knows what's coming.</p>
+      <form class="waitlist" id="waitlist-form">
+        <input type="email" id="waitlist-email" placeholder="you@example.com" required autocomplete="email">
+        <button type="submit">Get early access</button>
+      </form>
+      <div class="waitlist-note" id="waitlist-note">Be first in when we open the doors.</div>
+    </section>
+
+    <section class="features">
+      <div class="card">
+        <div class="icon">🔮</div>
+        <h3>Make the call</h3>
+        <p>Pick a prediction — or create your own — and stake your claim on how the future unfolds.</p>
+      </div>
+      <div class="card">
+        <div class="icon">⚡</div>
+        <h3>Back your take</h3>
+        <p>Put something on the line. Confidence is cheap until the outcome lands.</p>
+      </div>
+      <div class="card">
+        <div class="icon">🏆</div>
+        <h3>Prove you saw it coming</h3>
+        <p>Climb the leaderboard and build a track record that shows you called it first.</p>
+      </div>
+    </section>
+
+    <footer>
+      <div>© 2026 FutureBet</div>
+      <a href="mailto:hello@futurebet.lol">hello@futurebet.lol</a>
+    </footer>
+  </main>
+
+  <script>
+    // Waitlist backend not wired up yet. Set FORM_ENDPOINT to a Formspree/Basin/etc.
+    // URL to collect signups; until then the form falls back to a prefilled email.
+    const FORM_ENDPOINT = "";
+
+    const form = document.getElementById("waitlist-form");
+    const note = document.getElementById("waitlist-note");
+
+    form.addEventListener("submit", async (e) => {
+      e.preventDefault();
+      const email = document.getElementById("waitlist-email").value.trim();
+      if (!email) return;
+
+      if (FORM_ENDPOINT) {
+        try {
+          const res = await fetch(FORM_ENDPOINT, {
+            method: "POST",
+            headers: { "Content-Type": "application/json", "Accept": "application/json" },
+            body: JSON.stringify({ email }),
+          });
+          if (!res.ok) throw new Error("Request failed");
+          note.textContent = "You're on the list. See you at launch. 🔮";
+          form.reset();
+        } catch {
+          note.textContent = "Something went wrong — email us at hello@futurebet.lol instead.";
+        }
+      } else {
+        window.location.href =
+          "mailto:hello@futurebet.lol?subject=FutureBet%20waitlist&body=" +
+          encodeURIComponent("Add me to the waitlist: " + email);
+        note.textContent = "Opening your email app — send it and you're on the list.";
+      }
+    });
+  </script>
+</body>
+</html>
