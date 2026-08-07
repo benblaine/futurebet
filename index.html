@@ -293,9 +293,11 @@
   </div>
 
   <script>
-    // Paste your Google Apps Script Web App URL here to save signups to the sheet.
-    // Setup instructions live in README.md; the script itself is google-apps-script.gs.
-    const SHEET_ENDPOINT = "";
+    // Signups go to a Google Form, which writes them into the waitlist sheet.
+    // Rebuilding the form changes both of these — see README.md for how to
+    // re-derive them from a pre-filled link.
+    const WAITLIST_ENDPOINT = "https://docs.google.com/forms/d/e/1FAIpQLSe0GvByFizFux83wL5zkl1UfWB_PLkioyMZKZt8q-92Q7hQuw/formResponse";
+    const WAITLIST_EMAIL_FIELD = "entry.321342280";
 
     const $ = (id) => document.getElementById(id);
     const toast = $("toast");
@@ -385,14 +387,28 @@
     }
 
     async function saveEmail(email) {
-      if (!SHEET_ENDPOINT) return; // Not configured yet — the spin still works.
-      // text/plain keeps this a "simple" request, so the browser skips the CORS
-      // preflight that Apps Script web apps don't answer.
-      await fetch(SHEET_ENDPOINT, {
-        method: "POST",
-        headers: { "Content-Type": "text/plain;charset=utf-8" },
-        body: JSON.stringify({ email, source: "futurebet.lol", ts: new Date().toISOString() }),
-      });
+      if (!WAITLIST_ENDPOINT) return; // Not configured yet — the spin still works.
+      // Forms sends no CORS headers, so this has to go out opaque: no-cors means
+      // the row still lands but the reply is unreadable, and only a hard network
+      // failure surfaces as an error. Check the sheet, not the UI, after deploys.
+      // urlencoded is a "simple" content type, so the browser skips the preflight
+      // that Forms wouldn't answer either.
+      // A stalled connection has no deadline of its own, so cap it — otherwise the
+      // button can sit on "SPINNING..." indefinitely with no way to retry.
+      const abort = new AbortController();
+      const timer = setTimeout(() => abort.abort(), 8000);
+
+      try {
+        await fetch(WAITLIST_ENDPOINT, {
+          method: "POST",
+          mode: "no-cors",
+          headers: { "Content-Type": "application/x-www-form-urlencoded" },
+          body: new URLSearchParams({ [WAITLIST_EMAIL_FIELD]: email }),
+          signal: abort.signal,
+        });
+      } finally {
+        clearTimeout(timer);
+      }
     }
 
     form.addEventListener("submit", async (e) => {
